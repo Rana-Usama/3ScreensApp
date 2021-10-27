@@ -40,10 +40,10 @@ function InputField({
     return (
         <View style={{ alignItems: "center", justifyContent: "center", flexDirection: "row", backgroundColor: backgroundColor, borderColor: borderColor, borderWidth: borderWidth, width: width, height: height, borderRadius: borderRadius, marginVertical: RFPercentage(0.7), }} >
             {leftIconName ? (
-                <TouchableOpacity onPress={() => handleFeild('')} style={{ alignItems: 'center', justifyContent: 'center', position: "absolute", right: RFPercentage(1), backgroundColor: '#939C84', width: RFPercentage(5), height: RFPercentage(5), borderRadius: RFPercentage(1.2) }}>
-                    <Feather
-                        color={Colors.white}
-                        size={RFPercentage(2.8)}
+                <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', position: "absolute", right: RFPercentage(3), width: RFPercentage(5), height: RFPercentage(5), borderRadius: RFPercentage(1.2) }}>
+                    <MaterialIcons
+                        color={Colors.darkGrey}
+                        size={RFPercentage(3.7)}
                         // style={{ right: RFPercentage(1) }}
                         name={leftIconName}
                     />

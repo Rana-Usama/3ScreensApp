@@ -50,6 +50,24 @@ function UserNameScreen(props) {
         showIndicator(false);
     };
 
+    const detailData = [
+        {
+            text: '- Must be between six and 50 character long.'
+        },
+        {
+            text: '- Can contain any letter from a to z and any number from 0 to 9'
+        },
+        {
+            text: '- Can contain spaces and some special characters including "-", "/", "_" (hyphen, dash, or underscore)'
+        },
+        {
+            text: '- Can contain non english characters (such as e)'
+        },
+        {
+            text: '- It is not case sensitive'
+        },
+    ]
+
     return (
 
         <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
@@ -104,6 +122,7 @@ function UserNameScreen(props) {
             </TouchableOpacity>
 
             <ScrollView style={{ backgroundColor: Colors.white, flex: 1, width: '100%' }} >
+
                 <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: RFPercentage(1) }}>
                     {/* input fields */}
                     <View style={{ marginTop: RFPercentage(6), justifyContent: 'center', alignItems: 'center', width: '100%' }}>
@@ -125,31 +144,25 @@ function UserNameScreen(props) {
                         ))}
                     </View>
 
+                    {/* Detailed Text */}
                     <View style={{ width: '90%', alignSelf: 'center' }}>
                         <Text style={{ color: Colors.grey, marginTop: RFPercentage(2), fontSize: RFPercentage(2.2) }}>
                             Your username
                         </Text>
-                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(2), fontSize: RFPercentage(2.2) }}>
-                            - Must be between six and 50 character long.
-                        </Text>
-                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
-                            - Can contain any letter from a to z and any number from 0 to 9
-                        </Text>
-                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
-                            - Can contain spaces and some special characters including "-", "/", "_" (hyphen, dash, or underscore)
-                        </Text>
-                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
-                            - Can contain non english characters (such as e)
-                        </Text>
-                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
-                            - It is not case sensitive
-                        </Text>
+                        {detailData.map((item, i) => (
+
+                            <Text key={i} style={{ color: Colors.grey, marginTop: i === 0 ? RFPercentage(2) : RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
+                                {item.text}
+                            </Text>
+                        ))}
+
                     </View>
 
                     {/* Button */}
                     <View style={{ marginTop: RFPercentage(2), marginBottom: RFPercentage(20) }}>
                         <AppButton onPress={() => handleLogin()} />
                     </View>
+
                 </View>
             </ScrollView>
 
