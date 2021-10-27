@@ -12,19 +12,18 @@ import LoadingModal from './../components/common/LoadingModal';
 //config
 import Colors from '../config/Colors';
 
-function PasswordScreen(props) {
+function EmailScreen(props) {
 
     const [indicator, showIndicator] = useState(false);
 
     const [inputField, SetInputField] = useState([
         {
-            placeholder: "Old Password",
+            placeholder: "Current Email Address",
             value: "",
         },
         {
-            placeholder: "New Password",
+            placeholder: "New Email Address",
             value: "",
-            secure: true
         },
     ]);
 
@@ -67,7 +66,7 @@ function PasswordScreen(props) {
         <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
             <LoadingModal show={indicator} />
 
-            <View style={{ width: '100%', height: RFPercentage(30), backgroundColor: Colors.pink, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ width: '100%', height: RFPercentage(30), backgroundColor: Colors.bright, justifyContent: 'center', alignItems: 'center' }}>
 
                 {/* Top View */}
                 <View style={{ marginBottom: RFPercentage(1), flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '80%' }}>
@@ -114,7 +113,7 @@ function PasswordScreen(props) {
             {/* Change password label right */}
             <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: Colors.purple, width: RFPercentage(23), height: RFPercentage(3.9), borderTopLeftRadius: RFPercentage(10), borderBottomLeftRadius: RFPercentage(10), alignSelf: 'flex-end', marginTop: RFPercentage(2), justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ color: Colors.lightWhite, fontSize: RFPercentage(2.5) }}>
-                    Change Password
+                    E-mail Address
                 </Text>
             </TouchableOpacity>
 
@@ -154,4 +153,4 @@ function PasswordScreen(props) {
     );
 }
 
-export default PasswordScreen;
+export default EmailScreen;

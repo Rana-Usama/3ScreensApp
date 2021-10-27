@@ -2,6 +2,7 @@ export default {
     pink: '#d11875',
     lightWhite: '#ffb7f8',
     purple: '#c0249f',
+    bright: '#c218d1',
     lightPurple: '#d11890',
     grey: "#708097",
     inputFieldBorder: "rgba(195, 211, 212, 0.9)",
