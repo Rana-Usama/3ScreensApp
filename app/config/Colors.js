@@ -4,7 +4,7 @@ export default {
     purple: '#c0249f',
     bright: '#c218d1',
     lightPurple: '#d11890',
-    grey: "#708097",
+    grey: "#d5d5d5",
     inputFieldBorder: "rgba(195, 211, 212, 0.9)",
     inputFieldBackgroundColor: "#efefef",
     inputFieldPlaceholder: "#9AA3AE",

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, Image, Platform, TouchableOpacity, ScrollView } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { EvilIcons } from '@expo/vector-icons';
 
@@ -12,19 +12,16 @@ import LoadingModal from './../components/common/LoadingModal';
 //config
 import Colors from '../config/Colors';
 
-function EmailScreen(props) {
+function UserNameScreen(props) {
 
     const [indicator, showIndicator] = useState(false);
 
     const [inputField, SetInputField] = useState([
         {
-            placeholder: "Current Email Address",
+            placeholder: "Username",
             value: "",
         },
-        {
-            placeholder: "New Email Address",
-            value: "",
-        },
+
     ]);
 
     const handleChange = (text, i) => {
@@ -38,7 +35,7 @@ function EmailScreen(props) {
         showIndicator(true);
         let tempfeilds = [...inputField];
 
-        if (tempfeilds[0].value === "" || tempfeilds[1].value === "") {
+        if (tempfeilds[0].value === "") {
             alert("Please fill all the feilds");
             showIndicator(false);
             return true;
@@ -58,7 +55,7 @@ function EmailScreen(props) {
         <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
             <LoadingModal show={indicator} />
 
-            <View style={{ width: '100%', height: RFPercentage(30), backgroundColor: Colors.bright, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ width: '100%', height: RFPercentage(30), backgroundColor: Colors.pink, justifyContent: 'center', alignItems: 'center' }}>
 
                 {/* Top View */}
                 <View style={{ marginBottom: RFPercentage(1), flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '80%' }}>
@@ -99,41 +96,62 @@ function EmailScreen(props) {
                 </View>
             </View>
 
-            {/* Empty view for grey layer */}
-            <View style={{ width: '100%', height: RFPercentage(3), backgroundColor: Colors.inputFieldBackgroundColor }} />
-
             {/* Change password label right */}
             <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: Colors.purple, width: RFPercentage(23), height: RFPercentage(3.9), borderTopLeftRadius: RFPercentage(10), borderBottomLeftRadius: RFPercentage(10), alignSelf: 'flex-end', marginTop: RFPercentage(2), justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ color: Colors.lightWhite, fontSize: RFPercentage(2.5) }}>
-                    E-mail Address
+                    Username
                 </Text>
             </TouchableOpacity>
 
-            {/* input fields */}
-            <View style={{ marginTop: RFPercentage(8), justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+            <ScrollView style={{ backgroundColor: Colors.white, flex: 1, width: '100%' }} >
+                <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: RFPercentage(1) }}>
+                    {/* input fields */}
+                    <View style={{ marginTop: RFPercentage(6), justifyContent: 'center', alignItems: 'center', width: '100%' }}>
 
-                {inputField.map((item, i) => (
-                    <View key={i} style={{ marginTop: i === 1 ? RFPercentage(3) : RFPercentage(0) }} >
-                        <InputField
-                            placeholder={item.placeholder}
-                            backgroundColor={Colors.inputFieldBackgroundColor}
-                            borderWidth={0.3}
-                            borderColor={"#E3E5E5"}
-                            secure={item.secure}
-                            borderRadius={RFPercentage(10)}
-                            fontSize={RFPercentage(2)}
-                            handleFeild={(text) => handleChange(text, i)}
-                            value={item.value}
-                            width={"95%"}
-                        />
+                        {inputField.map((item, i) => (
+                            <View key={i} style={{ marginTop: i === 1 ? RFPercentage(3) : RFPercentage(0) }} >
+                                <InputField
+                                    placeholder={item.placeholder}
+                                    backgroundColor={Colors.inputFieldBackgroundColor}
+                                    borderWidth={0.3}
+                                    borderColor={"#E3E5E5"}
+                                    borderRadius={RFPercentage(10)}
+                                    fontSize={RFPercentage(2)}
+                                    handleFeild={(text) => handleChange(text, i)}
+                                    value={item.value}
+                                    width={"95%"}
+                                />
+                            </View>
+                        ))}
                     </View>
-                ))}
-            </View>
 
-            {/* Button */}
-            <View style={{ marginTop: RFPercentage(5) }}>
-                <AppButton onPress={() => handleLogin()} />
-            </View>
+                    <View style={{ width: '90%', alignSelf: 'center' }}>
+                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(2), fontSize: RFPercentage(2.2) }}>
+                            Your username
+                        </Text>
+                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(2), fontSize: RFPercentage(2.2) }}>
+                            - Must be between six and 50 character long.
+                        </Text>
+                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
+                            - Can contain any letter from a to z and any number from 0 to 9
+                        </Text>
+                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
+                            - Can contain spaces and some special characters including "-", "/", "_" (hyphen, dash, or underscore)
+                        </Text>
+                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
+                            - Can contain non english characters (such as e)
+                        </Text>
+                        <Text style={{ color: Colors.grey, marginTop: RFPercentage(0.4), fontSize: RFPercentage(2.2) }}>
+                            - It is not case sensitive
+                        </Text>
+                    </View>
+
+                    {/* Button */}
+                    <View style={{ marginTop: RFPercentage(2), marginBottom: RFPercentage(20) }}>
+                        <AppButton onPress={() => handleLogin()} />
+                    </View>
+                </View>
+            </ScrollView>
 
             {/* Botom View with avatar */}
             <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '100%', height: RFPercentage(7.4), backgroundColor: Colors.lightPurple, position: 'absolute', bottom: 0 }} >
@@ -145,4 +163,4 @@ function EmailScreen(props) {
     );
 }
 
-export default EmailScreen;
+export default UserNameScreen;
