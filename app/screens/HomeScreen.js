@@ -19,8 +19,8 @@ function HomeScreen(props) {
     const [selectedItem, setItem] = useState('')
 
     const items = [
-        { label: "Language 1", value: "Language 1" },
-        { label: "Language 2", value: "Language 2" },
+        { label: "Text 1", value: "Text 1" },
+        { label: "Text 2", value: "Text 2" },
 
     ]
 
