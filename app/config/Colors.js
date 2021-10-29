@@ -13,4 +13,5 @@ export default {
     white: "#fff",
     black: "black",
     lightBlue: '#C0FAEB',
+    useNameScreenTopView: '#d218a7'
 };

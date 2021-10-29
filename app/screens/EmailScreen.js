@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Platform, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { View, Text, Image, Platform, TouchableOpacity, KeyboardAvoidingView, ScrollView, StyleSheet } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { EvilIcons } from '@expo/vector-icons';
 
@@ -68,16 +68,16 @@ function EmailScreen(props) {
             <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
                 <LoadingModal show={indicator} />
 
-                <View style={{ width: '100%', height: RFPercentage(30), backgroundColor: Colors.bright, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={styles.topMainContainer}>
 
                     {/* Top View */}
-                    <View style={{ marginBottom: RFPercentage(1), flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '80%' }}>
+                    <View style={styles.topMainSubContainer}>
                         {/*Avatar*/}
                         <TouchableOpacity activeOpacity={0.8}>
                             <Image style={{ width: RFPercentage(9), height: RFPercentage(9) }} source={require('../../assets/images/avatar.png')} />
                         </TouchableOpacity>
 
-                        <View style={{ marginTop: RFPercentage(4), justifyContent: 'flex-start', alignItems: 'center', marginLeft: RFPercentage(1.5) }}>
+                        <View style={styles.topViewContentContainer}>
 
                             <Text style={{ color: Colors.white, fontSize: RFPercentage(3), fontWeight: Platform.OS === 'android' ? 'bold' : '600' }}>
                                 Firstname last name
@@ -110,10 +110,10 @@ function EmailScreen(props) {
                 </View>
 
                 {/* Empty view for grey layer */}
-                <View style={{ width: '100%', height: RFPercentage(3), backgroundColor: Colors.inputFieldBackgroundColor }} />
+                <View style={styles.emptyView} />
 
                 {/* Change password label right */}
-                <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: Colors.purple, width: RFPercentage(23), height: RFPercentage(3.9), borderTopLeftRadius: RFPercentage(10), borderBottomLeftRadius: RFPercentage(10), alignSelf: 'flex-end', marginTop: RFPercentage(2), justifyContent: 'center', alignItems: 'center' }}>
+                <TouchableOpacity activeOpacity={0.8} style={styles.changePassLabel}>
                     <Text style={{ color: Colors.lightWhite, fontSize: RFPercentage(2.5) }}>
                         E-mail Address
                     </Text>
@@ -153,10 +153,9 @@ function EmailScreen(props) {
                     </View>
                 </ScrollView>
 
-
                 {/* Botom View with avatar */}
                 {bottomBar ?
-                    <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '100%', height: RFPercentage(7.4), backgroundColor: Colors.lightPurple, position: 'absolute', bottom: 0 }} >
+                    <View style={styles.bottomView} >
                         <TouchableOpacity activeOpacity={0.8}>
                             <Image style={{ marginRight: RFPercentage(4), width: RFPercentage(6), height: RFPercentage(6) }} source={require('../../assets/images/avatar.png')} />
                         </TouchableOpacity>
@@ -168,5 +167,52 @@ function EmailScreen(props) {
         </KeyboardAvoidingView>
     );
 }
+
+const styles = StyleSheet.create({
+    topMainContainer: {
+        width: '100%',
+        height: RFPercentage(30),
+        backgroundColor: Colors.bright,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    topMainSubContainer: {
+        marginBottom: RFPercentage(1),
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '80%'
+    },
+    topViewContentContainer: {
+        marginTop: RFPercentage(4),
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginLeft: RFPercentage(1.5)
+    },
+    emptyView: {
+        width: '100%',
+        height: RFPercentage(3),
+        backgroundColor: Colors.inputFieldBackgroundColor
+    },
+    changePassLabel: {
+        backgroundColor: Colors.purple,
+        width: RFPercentage(23),
+        height: RFPercentage(3.9),
+        borderTopLeftRadius: RFPercentage(10),
+        borderBottomLeftRadius: RFPercentage(10),
+        alignSelf: 'flex-end',
+        marginTop: RFPercentage(2),
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    bottomView: {
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        width: '100%',
+        height: RFPercentage(7.4),
+        backgroundColor: Colors.lightPurple,
+        position: 'absolute', bottom: 0
+    }
+})
 
 export default EmailScreen;

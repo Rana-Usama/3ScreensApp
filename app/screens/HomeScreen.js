@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Platform, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, Platform, TouchableOpacity, ScrollView, StyleSheet } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { EvilIcons } from '@expo/vector-icons';
 import ReactNativeCrossPicker from "react-native-cross-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 //components
 import Screen from './../components/Screen';
+import InputField from '../components/common/InputField';
 
 //config
 import Colors from '../config/Colors';
-import InputField from '../components/common/InputField';
 
 function HomeScreen(props) {
+
+    const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false)
+    const [date, setDate] = useState(new Date())
+
+    const handleDatePicked = date => {
+        setDate(date)
+    };
 
     const [selectedItem, setItem] = useState('')
 
@@ -53,16 +61,25 @@ function HomeScreen(props) {
 
         <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
 
-            <View style={{ width: '100%', height: RFPercentage(30), backgroundColor: Colors.pink, justifyContent: 'center', alignItems: 'center' }}>
+            <DateTimePicker
+                textColor={Colors.black}
+                isDarkModeEnabled={false}
+                isVisible={isDateTimePickerVisible}
+                onConfirm={(date) => handleDatePicked(date)}
+                onCancel={() => setIsDateTimePickerVisible(false)}
+                mode="date"
+            />
+
+            <View style={styles.topMainContainer}>
 
                 {/* Top View */}
-                <View style={{ marginBottom: RFPercentage(1), flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', width: '80%' }}>
+                <View style={styles.topMainSubContainer}>
                     {/*Avatar*/}
                     <TouchableOpacity activeOpacity={0.8}>
                         <Image style={{ width: RFPercentage(9), height: RFPercentage(9) }} source={require('../../assets/images/avatar.png')} />
                     </TouchableOpacity>
 
-                    <View style={{ marginTop: RFPercentage(4), justifyContent: 'flex-start', alignItems: 'center', marginLeft: RFPercentage(1.5) }}>
+                    <View style={styles.topViewContentContainer}>
 
                         <Text style={{ color: Colors.white, fontSize: RFPercentage(3), fontWeight: Platform.OS === 'android' ? 'bold' : '600' }}>
                             Firstname last name
@@ -95,10 +112,10 @@ function HomeScreen(props) {
             </View>
 
             {/* Empty view for grey layer */}
-            <View style={{ width: '100%', height: RFPercentage(3), backgroundColor: Colors.inputFieldBackgroundColor }} />
+            <View style={styles.emptyView} />
 
             {/* Change password label right */}
-            <TouchableOpacity activeOpacity={0.8} style={{ backgroundColor: Colors.purple, width: RFPercentage(23), height: RFPercentage(3.9), borderTopLeftRadius: RFPercentage(10), borderBottomLeftRadius: RFPercentage(10), alignSelf: 'flex-end', marginTop: RFPercentage(2), justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.changePassLabel}>
                 <Text style={{ color: Colors.lightWhite, fontSize: RFPercentage(2.5) }}>
                     Private Account
                 </Text>
@@ -120,13 +137,13 @@ function HomeScreen(props) {
                     </View>
 
                     {/* Date of birth */}
-                    <View style={{ marginTop: RFPercentage(5), width: "88%", alignSelf: 'center', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row' }}>
+                    <View style={styles.dateOfBirth}>
 
                         <Text style={{ color: Colors.grey, fontSize: RFPercentage(2.4) }}>
                             Date of birth
                         </Text>
 
-                        <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: RFPercentage(5), backgroundColor: Colors.white, borderColor: Colors.grey, borderWidth: RFPercentage(0.2), width: RFPercentage(13), height: RFPercentage(6), borderRadius: RFPercentage(10) }}>
+                        <View style={styles.dateContainer}>
                             <Text style={{ color: Colors.grey, fontSize: RFPercentage(2) }}>23/10/1987</Text>
                         </View>
                     </View>
@@ -152,7 +169,7 @@ function HomeScreen(props) {
                         ))}
                     </View>
 
-                    <View style={{ marginTop: RFPercentage(1.5), width: "88%", alignSelf: 'center', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row' }}>
+                    <View style={styles.sideTextHeading}>
                         <Text style={{ color: Colors.grey, fontSize: RFPercentage(2.4) }}>
                             Language
                         </Text>
@@ -174,7 +191,7 @@ function HomeScreen(props) {
                         />
                     </View>
 
-                    <View style={{ marginTop: RFPercentage(1.5), width: "88%", alignSelf: 'center', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row' }}>
+                    <View style={styles.sideTextHeading}>
                         <Text style={{ color: Colors.grey, fontSize: RFPercentage(2.4) }}>
                             Exercise
                         </Text>
@@ -186,16 +203,16 @@ function HomeScreen(props) {
                         <FontAwesome name="calendar" style={{ fontSize: RFPercentage(3.5), position: 'absolute', left: RFPercentage(3) }} color="black" />
 
                         <Text style={{ color: Colors.black, fontSize: RFPercentage(2.6) }}>
-                            iOS Calendar
+                            {date.toDateString()}
                         </Text>
 
-                        <TouchableOpacity activeOpacity={0.7} style={{ alignItems: 'center', justifyContent: 'center', position: 'absolute', right: RFPercentage(3) }}>
+                        <TouchableOpacity onPress={() => setIsDateTimePickerVisible(true)} activeOpacity={0.7} style={styles.calendarPlusIcon}>
                             <Entypo name="plus" style={{ fontSize: RFPercentage(2.8) }} color={Colors.darkGrey} />
                         </TouchableOpacity>
                     </View>
 
                     {/* Change pass and email hyperlinks */}
-                    <View style={{ marginBottom: RFPercentage(16), marginTop: RFPercentage(2), width: '100%', flexDirection: 'row', justifyContent: "space-evenly", alignItems: 'center' }}>
+                    <View style={styles.changePassEmailContainer}>
 
                         <TouchableOpacity onPress={() => props.navigation.navigate("PasswordScreen")} activeOpacity={0.5}>
                             <Text style={{ textDecorationLine: 'underline', fontSize: RFPercentage(2.5), color: Colors.darkGrey }}>
@@ -210,6 +227,7 @@ function HomeScreen(props) {
                         </TouchableOpacity>
                     </View>
 
+
                 </View>
             </ScrollView>
 
@@ -223,5 +241,86 @@ function HomeScreen(props) {
         </Screen>
     );
 }
+
+const styles = StyleSheet.create({
+    topMainContainer: {
+        width: '100%',
+        height: RFPercentage(30),
+        backgroundColor: Colors.pink,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    topMainSubContainer: {
+        marginBottom: RFPercentage(1),
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '80%'
+    },
+    topViewContentContainer: {
+        marginTop: RFPercentage(4),
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginLeft: RFPercentage(1.5)
+    },
+    emptyView: {
+        width: '100%',
+        height: RFPercentage(3),
+        backgroundColor: Colors.inputFieldBackgroundColor
+    },
+
+    changePassLabel: {
+        backgroundColor: Colors.purple,
+        width: RFPercentage(23),
+        height: RFPercentage(3.9),
+        borderTopLeftRadius: RFPercentage(10),
+        borderBottomLeftRadius: RFPercentage(10),
+        alignSelf: 'flex-end',
+        marginTop: RFPercentage(2),
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    dateContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: RFPercentage(5),
+        backgroundColor: Colors.white,
+        borderColor: Colors.grey,
+        borderWidth: RFPercentage(0.2),
+        width: RFPercentage(13),
+        height: RFPercentage(6),
+        borderRadius: RFPercentage(10)
+    },
+    dateOfBirth: {
+        marginTop: RFPercentage(5),
+        width: "88%",
+        alignSelf: 'center',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    sideTextHeading: {
+        marginTop: RFPercentage(1.5),
+        width: "88%",
+        alignSelf: 'center',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    calendarPlusIcon: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        right: RFPercentage(3)
+    },
+    changePassEmailContainer: {
+        marginBottom: RFPercentage(16),
+        marginTop: RFPercentage(2),
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: "space-evenly",
+        alignItems: 'center'
+    }
+})
 
 export default HomeScreen;
