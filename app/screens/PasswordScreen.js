@@ -15,6 +15,8 @@ import Colors from '../config/Colors';
 function PasswordScreen(props) {
 
     const [indicator, showIndicator] = useState(false);
+    const [bottomBar, setBottomBar] = useState(true);
+
 
     const [inputField, SetInputField] = useState([
         {
@@ -23,6 +25,11 @@ function PasswordScreen(props) {
         },
         {
             placeholder: "New Password",
+            value: "",
+            secure: true
+        },
+        {
+            placeholder: "Confirm Password",
             value: "",
             secure: true
         },
@@ -122,11 +129,13 @@ function PasswordScreen(props) {
             <View style={{ marginTop: RFPercentage(8), justifyContent: 'center', alignItems: 'center', width: '100%' }}>
 
                 {inputField.map((item, i) => (
-                    <View key={i} style={{ marginTop: i === 1 ? RFPercentage(3) : RFPercentage(0) }} >
+                    <View key={i} style={{ marginTop: i === 0 ? RFPercentage(-2) : RFPercentage(2) }} >
                         <InputField
                             placeholder={item.placeholder}
                             backgroundColor={Colors.inputFieldBackgroundColor}
                             borderWidth={0.3}
+                            onTouchStart={() => setBottomBar(false)}
+                            onTouchEnd={() => setBottomBar(true)}
                             borderColor={"#E3E5E5"}
                             secure={item.secure}
                             borderRadius={RFPercentage(10)}
@@ -140,16 +149,20 @@ function PasswordScreen(props) {
             </View>
 
             {/* Button */}
-            <View style={{ marginTop: RFPercentage(5) }}>
+            <View style={{ marginTop: RFPercentage(2) }}>
                 <AppButton onPress={() => handleLogin()} />
             </View>
 
             {/* Botom View with avatar */}
-            <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '100%', height: RFPercentage(7.4), backgroundColor: Colors.lightPurple, position: 'absolute', bottom: 0 }} >
-                <TouchableOpacity activeOpacity={0.8}>
-                    <Image style={{ marginRight: RFPercentage(4), width: RFPercentage(6), height: RFPercentage(6) }} source={require('../../assets/images/avatar.png')} />
-                </TouchableOpacity>
-            </View>
+            {bottomBar ?
+                <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '100%', height: RFPercentage(7.4), backgroundColor: Colors.lightPurple, position: 'absolute', bottom: 0 }} >
+                    <TouchableOpacity activeOpacity={0.8}>
+                        <Image style={{ marginRight: RFPercentage(4), width: RFPercentage(6), height: RFPercentage(6) }} source={require('../../assets/images/avatar.png')} />
+                    </TouchableOpacity>
+                </View> :
+                null
+            }
+
         </Screen>
     );
 }
