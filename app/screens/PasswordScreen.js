@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, Platform, TouchableOpacity, StyleSheet } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { EvilIcons } from '@expo/vector-icons';
+import BottomBar from "../components/common/BottomBar";
 
 //components
 import Screen from './../components/Screen';
@@ -71,7 +72,7 @@ function PasswordScreen(props) {
 
     return (
 
-        <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
+        <Screen statusBarColor={Colors.pink} style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
             <LoadingModal show={indicator} />
 
             <View style={styles.topMainContainer}>
@@ -79,7 +80,7 @@ function PasswordScreen(props) {
                 {/* Top View */}
                 <View style={styles.topMainSubContainer}>
                     {/*Avatar*/}
-                    <TouchableOpacity activeOpacity={0.8}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate("HomeScreen")} activeOpacity={0.8}>
                         <Image style={{ width: RFPercentage(9), height: RFPercentage(9) }} source={require('../../assets/images/avatar.png')} />
                     </TouchableOpacity>
 
@@ -155,11 +156,7 @@ function PasswordScreen(props) {
 
             {/* Botom View with avatar */}
             {bottomBar ?
-                <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '100%', height: RFPercentage(7.4), backgroundColor: Colors.lightPurple, position: 'absolute', bottom: 0 }} >
-                    <TouchableOpacity activeOpacity={0.8}>
-                        <Image style={{ marginRight: RFPercentage(4), width: RFPercentage(6), height: RFPercentage(6) }} source={require('../../assets/images/avatar.png')} />
-                    </TouchableOpacity>
-                </View> :
+                <BottomBar props={props} /> :
                 null
             }
 

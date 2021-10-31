@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import BottomBar from "../components/common/BottomBar";
 
 //components
 import Screen from './../components/Screen';
@@ -59,7 +60,7 @@ function HomeScreen(props) {
 
     return (
 
-        <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
+        <Screen statusBarColor={Colors.pink} style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
 
             <DateTimePicker
                 textColor={Colors.black}
@@ -114,14 +115,15 @@ function HomeScreen(props) {
             {/* Empty view for grey layer */}
             <View style={styles.emptyView} />
 
-            {/* Change password label right */}
-            <TouchableOpacity activeOpacity={0.8} style={styles.changePassLabel}>
-                <Text style={{ color: Colors.lightWhite, fontSize: RFPercentage(2.5) }}>
-                    Private Account
-                </Text>
-            </TouchableOpacity>
-
             <ScrollView style={{ backgroundColor: Colors.white, flex: 1, width: '100%' }} >
+
+                {/* Change password label right */}
+                <TouchableOpacity activeOpacity={0.8} style={styles.changePassLabel}>
+                    <Text style={{ color: Colors.lightWhite, fontSize: RFPercentage(2.5) }}>
+                        Private Account
+                    </Text>
+                </TouchableOpacity>
+
 
                 <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%', marginTop: RFPercentage(1) }}>
                     {/* Second avatar */}
@@ -131,9 +133,11 @@ function HomeScreen(props) {
                             <Image style={{ width: RFPercentage(9), height: RFPercentage(9) }} source={require('../../assets/images/avatar.png')} />
                         </TouchableOpacity>
 
-                        <Text style={{ color: Colors.lightBrown, marginLeft: RFPercentage(3), marginTop: RFPercentage(5), fontSize: RFPercentage(2.4) }}>
-                            @ Set Username
-                        </Text>
+                        <TouchableOpacity onPress={() => props.navigation.navigate("UserNameScreen")} style={{ marginLeft: RFPercentage(3), marginTop: RFPercentage(5) }}>
+                            <Text style={{ color: Colors.lightBrown, fontSize: RFPercentage(2.4) }} >
+                                @ Set Username
+                            </Text>
+                        </TouchableOpacity>
                     </View>
 
                     {/* Date of birth */}
@@ -182,12 +186,12 @@ function HomeScreen(props) {
                             mainComponentStyle={{ justifyContent: 'center', alignItems: 'center', width: "80%", borderWidth: RFPercentage(0.2), borderColor: Colors.grey, backgroundColor: Colors.white, height: RFPercentage(7.5), borderRadius: RFPercentage(25) }}
                             modalComponentStyle={{ borderRadius: RFPercentage(3), backgroundColor: Colors.white, borderColor: Colors.grey, borderWidth: RFPercentage(0.1) }}
                             iconComponent={iconComponent}
-                            placeholderStyle={{ marginLeft: RFPercentage(32), color: Colors.darkGrey, textDecorationLine: 'underline', fontSize: RFPercentage(2.4) }}
+                            placeholderStyle={{ marginLeft: RFPercentage(32), marginRight: RFPercentage(4), color: Colors.darkGrey, textDecorationLine: 'underline', fontSize: RFPercentage(2.4) }}
                             modalTextStyle={{ color: "#12424a", fontSize: RFPercentage(2.6), fontWeight: 'bold' }}
                             items={items}
                             setItem={setItem} selectedItem={selectedItem}
                             placeholder="English"
-                            modalMarginTop={"45%"}
+                            modalMarginTop={"80%"}
                         />
                     </View>
 
@@ -232,11 +236,7 @@ function HomeScreen(props) {
             </ScrollView>
 
             {/* Botom View with avatar */}
-            <View style={{ justifyContent: 'center', alignItems: 'flex-end', width: '100%', height: RFPercentage(7.4), backgroundColor: Colors.lightPurple, position: 'absolute', bottom: 0 }} >
-                <TouchableOpacity activeOpacity={0.8}>
-                    <Image style={{ marginRight: RFPercentage(4), width: RFPercentage(6), height: RFPercentage(6) }} source={require('../../assets/images/avatar.png')} />
-                </TouchableOpacity>
-            </View>
+            <BottomBar props={props} />
 
         </Screen>
     );

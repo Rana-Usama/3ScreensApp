@@ -8,6 +8,7 @@ import Screen from './../components/Screen';
 import AppButton from '../components/common/AppButton';
 import InputField from './../components/common/InputField';
 import LoadingModal from './../components/common/LoadingModal';
+import BottomBar from "../components/common/BottomBar";
 
 //config
 import Colors from '../config/Colors';
@@ -70,7 +71,7 @@ function UserNameScreen(props) {
 
     return (
 
-        <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
+        <Screen statusBarColor={Colors.useNameScreenTopView} style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
             <LoadingModal show={indicator} />
 
             <View style={styles.topMainContainer}>
@@ -78,7 +79,7 @@ function UserNameScreen(props) {
                 {/* Top View */}
                 <View style={styles.topMainSubContainer}>
                     {/*Avatar*/}
-                    <TouchableOpacity activeOpacity={0.8}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate("HomeScreen")} activeOpacity={0.8}>
                         <Image style={{ width: RFPercentage(9), height: RFPercentage(9) }} source={require('../../assets/images/avatar.png')} />
                     </TouchableOpacity>
 
@@ -167,11 +168,8 @@ function UserNameScreen(props) {
             </ScrollView>
 
             {/* Botom View with avatar */}
-            <View style={styles.bottomView} >
-                <TouchableOpacity activeOpacity={0.8}>
-                    <Image style={{ marginRight: RFPercentage(4), width: RFPercentage(6), height: RFPercentage(6) }} source={require('../../assets/images/avatar.png')} />
-                </TouchableOpacity>
-            </View>
+            <BottomBar props={props} />
+
         </Screen>
     );
 }
@@ -207,14 +205,6 @@ const styles = StyleSheet.create({
         marginTop: RFPercentage(2),
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    bottomView: {
-        justifyContent: 'center', alignItems: 'flex-end',
-        width: '100%',
-        height: RFPercentage(7.4),
-        backgroundColor: Colors.lightPurple,
-        position: 'absolute',
-        bottom: 0
     }
 })
 
